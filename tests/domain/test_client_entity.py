@@ -16,6 +16,7 @@ class TestClientEntity(unittest.TestCase):
 
         self.assertEqual(client.name.value,"Joao Silva")
         self.assertEqual(client.email.value,"joao.silva@example.com")
+        self.assertEqual(client.type_request.value,"Atualizacao cadastral")
         self.assertEqual(client.status,ClientStatusEnum.WAITING_ANALYSIS)
         self.assertEqual(client.priority,ClientPriorityEnum.NOT_PROCESSING)
 

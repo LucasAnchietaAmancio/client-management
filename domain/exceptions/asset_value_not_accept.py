@@ -1,6 +1,7 @@
-from domain.exceptions.domain_validation_error import DomainValidationError
+from domain.exceptions.domain_validation import DomainValidation
 
-class AssetValueNotAccept(DomainValidationError):
+
+class AssetValueNotAccept(DomainValidation):
     def __init__(self,message: str) -> None:
         super().__init__(
             message=message,

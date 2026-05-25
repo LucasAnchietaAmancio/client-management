@@ -1,6 +1,6 @@
 import re
 
-from domain.exceptions.invalid_email_error import InvalidEmailError
+from domain.exceptions.invalid_email import InvalidEmail
 from domain.exceptions.type_mismatch import TypeMismatch
 
 class EmailValueObject:
@@ -14,6 +14,6 @@ class EmailValueObject:
         normalized_value = value.strip().lower()
 
         if not self.EMAIL_REGEX.match(normalized_value):
-            raise InvalidEmailError("Invalid email, please insert a valid email address")
+            raise InvalidEmail("Invalid email, please insert a valid email address")
 
         self.value = normalized_value

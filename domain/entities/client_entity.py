@@ -3,12 +3,13 @@ import uuid
 from domain.value_objects.name_value_object import NameValueObject
 from domain.value_objects.email_value_object import EmailValueObject
 from domain.value_objects.asset_value_object import AssetValueObject
+from domain.value_objects.type_request_value_object import TypeRequestValueObject
 from domain.enums.client_status_enum import ClientStatusEnum
 from domain.enums.client_priority_enum import ClientPriorityEnum
 
 
 class ClientEntity:
-    def __init__(self,client_id: uuid.UUID,name: NameValueObject,email: EmailValueObject,type_request: str,asset_value: AssetValueObject,status: ClientStatusEnum,priority: ClientPriorityEnum,) -> None:
+    def __init__(self,client_id: uuid.UUID,name: NameValueObject,email: EmailValueObject,type_request: TypeRequestValueObject,asset_value: AssetValueObject,status: ClientStatusEnum,priority: ClientPriorityEnum):
         self.client_id = client_id
         self.name = name
         self.email = email
@@ -23,7 +24,7 @@ class ClientEntity:
             client_id=uuid.uuid4(),
             name=NameValueObject(name),
             email=EmailValueObject(email),
-            type_request=type_request,
+            type_request=TypeRequestValueObject(type_request),
             asset_value=AssetValueObject(asset_value),
             status=ClientStatusEnum.WAITING_ANALYSIS,
             priority=ClientPriorityEnum.NOT_PROCESSING,
@@ -35,7 +36,7 @@ class ClientEntity:
             client_id=uuid.UUID(str(client_id)),
             name=NameValueObject(name),
             email=EmailValueObject(email),
-            type_request=type_request,
+            type_request=TypeRequestValueObject(type_request),
             asset_value=AssetValueObject(asset_value),
             status=ClientStatusEnum(status),
             priority=ClientPriorityEnum(priority),

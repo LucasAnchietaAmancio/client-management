@@ -1,6 +1,6 @@
 from domain.exceptions.type_mismatch import TypeMismatch
-from domain.exceptions.empty_value_error import EmptyValueError
-from domain.exceptions.invalid_value_error import InvalidValueError
+from domain.exceptions.empty_value import EmptyValue
+from domain.exceptions.invalid_value import InvalidValue
 
 class NameValueObject:
     def __init__(self,value: str) -> None:
@@ -11,9 +11,9 @@ class NameValueObject:
         normalized_value = value.strip()
 
         if not normalized_value:
-            raise EmptyValueError("Name cannot be empty")
+            raise EmptyValue("Name cannot be empty")
 
         if len(normalized_value) < 3:
-            raise InvalidValueError("Name must have at least 3 characters")
+            raise InvalidValue("Name must have at least 3 characters")
 
         self.value = normalized_value
