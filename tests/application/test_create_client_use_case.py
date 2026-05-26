@@ -11,9 +11,15 @@ class InMemoryClientRepository(ClientRepositoryContract):
     def __init__(self) -> None:
         self.clients: list[ClientEntity] = []
 
-    async def save(self,client_entity: ClientEntity) -> ClientEntity:
+    async def save(self,client_entity: ClientEntity) -> object:
         self.clients.append(client_entity)
-        return client_entity
+        return {
+            "client_id": str(client_entity.client_id),
+            "name": client_entity.name.value,
+            "email": client_entity.email.value,
+            "type_request": client_entity.type_request.value,
+            "asset_value": client_entity.asset_value.value,
+        }
 
     async def find_by_email(self,email: str) -> ClientEntity | None:
         for client in self.clients:
@@ -30,8 +36,8 @@ class TestCreateClientUseCase(unittest.IsolatedAsyncioTestCase):
 
         response = await use_case.execute(
             CreateClientRequestDto(
-                name="Joao Silva",
-                email="joao.silva@example.com",
+                name="Lucas",
+                email="lucas@email.com",
                 type_request="Atualizacao cadastral",
                 asset_value=250000,
             )
@@ -39,8 +45,8 @@ class TestCreateClientUseCase(unittest.IsolatedAsyncioTestCase):
 
         self.assertEqual(len(repository.clients),1)
         self.assertIsInstance(response,CreateClientResponseDto)
-        self.assertEqual(response.name,"Joao Silva")
-        self.assertEqual(response.email,"joao.silva@example.com")
+        self.assertEqual(response.name,"Lucas")
+        self.assertEqual(response.email,"lucas@email.com")
         self.assertEqual(response.type_request,"Atualizacao cadastral")
         self.assertEqual(response.asset_value,250000)
 

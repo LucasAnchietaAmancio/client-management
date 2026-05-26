@@ -1,3 +1,4 @@
+
 class ApplicationValidation(Exception):
     def __init__(self,message: str,tag: str = "APPLICATION_VALIDATION") -> None:
         self.tag = tag

@@ -1,5 +1,4 @@
-from application.exceptions.application_validation import ApplicationValidation
-
+from .application_validation import ApplicationValidation
 
 class InvalidInputData(ApplicationValidation):
     def __init__(self,message: str) -> None:

@@ -8,22 +8,22 @@ from domain.enums.client_status_enum import ClientStatusEnum
 class TestClientEntity(unittest.TestCase):
     def test_create_client_with_initial_status(self):
         client = ClientEntity.create(
-            name="Joao Silva",
-            email="JOAO.SILVA@example.com",
+            name="Lucas",
+            email="LUCAS@email.com",
             type_request="Atualizacao cadastral",
             asset_value=250000,
         )
 
-        self.assertEqual(client.name.value,"Joao Silva")
-        self.assertEqual(client.email.value,"joao.silva@example.com")
+        self.assertEqual(client.name.value,"Lucas")
+        self.assertEqual(client.email.value,"lucas@email.com")
         self.assertEqual(client.type_request.value,"Atualizacao cadastral")
         self.assertEqual(client.status,ClientStatusEnum.WAITING_ANALYSIS)
         self.assertEqual(client.priority,ClientPriorityEnum.NOT_PROCESSING)
 
     def test_process_client_with_high_priority(self):
         client = ClientEntity.create(
-            name="Joao Silva",
-            email="joao.silva@example.com",
+            name="Lucas",
+            email="lucas@email.com",
             type_request="Atualizacao cadastral",
             asset_value=250000,
         )
@@ -49,8 +49,8 @@ class TestClientEntity(unittest.TestCase):
     def test_restore_client_from_database_values(self):
         client = ClientEntity.restore(
             client_id="11111111-1111-1111-1111-111111111111",
-            name="Joao Silva",
-            email="joao.silva@example.com",
+            name="Lucas",
+            email="lucas@email.com",
             type_request="Atualizacao cadastral",
             asset_value=250000,
             status="Processado",

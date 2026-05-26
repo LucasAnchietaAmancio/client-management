@@ -31,7 +31,7 @@ class ClientEntity:
         )
 
     @staticmethod
-    def restore(client_id: str | uuid.UUID,name: str,email: str,type_request: str,asset_value: int,status: str | ClientStatusEnum,priority: str | ClientPriorityEnum,) -> "ClientEntity":
+    def restore(client_id: str | uuid.UUID, name: str,email: str,type_request: str,asset_value: int,status: str | ClientStatusEnum,priority: str | ClientPriorityEnum,) -> "ClientEntity":
         return ClientEntity(
             client_id=uuid.UUID(str(client_id)),
             name=NameValueObject(name),

@@ -22,11 +22,11 @@ class CreateClientUseCase:
         if existing_client:
             raise ClientAlreadyExists("A customer already exists with that email address, please choose another email address")
 
-        client_persisted = await self.client_repository.save(client)
+        client_persisted_public = await self.client_repository.save(client)
 
         return CreateClientResponseDto(
-            name=client_persisted.name.value,
-            email=client_persisted.email.value,
-            type_request=client_persisted.type_request.value,
-            asset_value=client_persisted.asset_value.value,
+            name=client_persisted_public["name"],
+            email=client_persisted_public["email"],
+            type_request=client_persisted_public["type_request"],
+            asset_value=client_persisted_public["asset_value"],
         )

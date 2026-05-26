@@ -1,5 +1,4 @@
-from domain.exceptions.domain_validation import DomainValidation
-
+from .domain_validation import DomainValidation
 
 class InvalidEmail(DomainValidation):
     def __init__(self,message: str = "Invalid email") -> None:
