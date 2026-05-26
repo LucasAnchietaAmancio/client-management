@@ -5,7 +5,7 @@ from src.domain.entities.client_entity import ClientEntity
 class ClientRepositoryContract(ABC):
 
     @abstractmethod
-    async def save(self,client_entity: ClientEntity) -> dict[str, object]:
+    async def save(self,client_entity: ClientEntity) -> None:
         pass
 
     @abstractmethod
@@ -13,5 +13,5 @@ class ClientRepositoryContract(ABC):
         pass
 
     @abstractmethod
-    async def update(self,client_entity: ClientEntity) -> dict[str, object]:
+    async def update_by_id(self,client_entity: ClientEntity) -> None:
         pass

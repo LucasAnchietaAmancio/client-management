@@ -5,7 +5,7 @@ from src.domain.entities.event_entity import EventEntity
 class EventRepositoryContract(ABC):
 
     @abstractmethod
-    async def save(self,event_entity: EventEntity) -> dict[str, object]:
+    async def save(self,event_entity: EventEntity) -> None:
         pass
 
     @abstractmethod

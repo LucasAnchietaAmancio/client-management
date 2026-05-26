@@ -11,15 +11,8 @@ class InMemoryClientRepository(ClientRepositoryContract):
     def __init__(self) -> None:
         self.clients: list[ClientEntity] = []
 
-    async def save(self,client_entity: ClientEntity) -> dict[str, object]:
+    async def save(self,client_entity: ClientEntity) -> None:
         self.clients.append(client_entity)
-        return {
-            "client_id": str(client_entity.client_id),
-            "name": client_entity.name.value,
-            "email": client_entity.email.value,
-            "type_request": client_entity.type_request.value,
-            "asset_value": client_entity.asset_value.value,
-        }
 
     async def find_by_email(self,email: str) -> ClientEntity | None:
         for client in self.clients:
@@ -28,14 +21,8 @@ class InMemoryClientRepository(ClientRepositoryContract):
 
         return None
 
-    async def update(self,client_entity: ClientEntity) -> dict[str, object]:
-        return {
-            "client_id": str(client_entity.client_id),
-            "name": client_entity.name.value,
-            "email": client_entity.email.value,
-            "type_request": client_entity.type_request.value,
-            "asset_value": client_entity.asset_value.value,
-        }
+    async def update_by_id(self,client_entity: ClientEntity) -> None:
+        return None
 
 
 class TestCreateClientUseCase(unittest.IsolatedAsyncioTestCase):

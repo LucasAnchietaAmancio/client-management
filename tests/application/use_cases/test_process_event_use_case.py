@@ -15,9 +15,8 @@ class InMemoryClientRepository(ClientRepositoryContract):
     def __init__(self) -> None:
         self.clients: list[ClientEntity] = []
 
-    async def save(self,client_entity: ClientEntity) -> dict[str, object]:
+    async def save(self,client_entity: ClientEntity) -> None:
         self.clients.append(client_entity)
-        return self._to_public(client_entity)
 
     async def find_by_email(self,email: str) -> ClientEntity | None:
         for client in self.clients:
@@ -26,31 +25,16 @@ class InMemoryClientRepository(ClientRepositoryContract):
 
         return None
 
-    async def update(self,client_entity: ClientEntity) -> dict[str, object]:
-        return self._to_public(client_entity)
-
-    def _to_public(self,client_entity: ClientEntity) -> dict[str, object]:
-        return {
-            "client_id": str(client_entity.client_id),
-            "name": client_entity.name.value,
-            "email": client_entity.email.value,
-            "type_request": client_entity.type_request.value,
-            "asset_value": client_entity.asset_value.value,
-        }
+    async def update_by_id(self,client_entity: ClientEntity) -> None:
+        return None
 
 
 class InMemoryEventRepository(EventRepositoryContract):
     def __init__(self) -> None:
         self.events: list[EventEntity] = []
 
-    async def save(self,event_entity: EventEntity) -> dict[str, object]:
+    async def save(self,event_entity: EventEntity) -> None:
         self.events.append(event_entity)
-        return {
-            "event_id": event_entity.event_id,
-            "card_id": event_entity.card_id,
-            "client_email": event_entity.client_email.value,
-            "timestamp": event_entity.timestamp,
-        }
 
     async def find_by_id(self,event_id: str) -> EventEntity | None:
         for event in self.events:

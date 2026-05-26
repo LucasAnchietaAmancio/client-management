@@ -7,6 +7,7 @@ from src.application.use_cases.webhook_event.dtos.process_pipefy_webhook_respons
 from src.domain.entities.event_entity import EventEntity
 
 class ProcessEventUseCase:
+    
     def __init__(self,event_repository: EventRepositoryContract,client_repository: ClientRepositoryContract) -> None:
         self.event_repository = event_repository
         self.client_repository = client_repository
@@ -31,14 +32,13 @@ class ProcessEventUseCase:
 
         client_from_event.process()
 
-        await self.client_repository.update(client_from_event)
-
-        event_persisted_public = await self.event_repository.save(event)
+        await self.event_repository.save(event)
+        await self.client_repository.update_by_id(client_from_event)
 
         return ProcessPipefyWebhookResponseDto(
-            event_id=event_persisted_public["event_id"],
-            card_id=event_persisted_public["card_id"],
-            client_email=event_persisted_public["client_email"],
+            event_id=event.event_id,
+            card_id=event.card_id,
+            client_email=event.client_email.value,
             status=client_from_event.status.value,
             priority=client_from_event.priority.value,
         )

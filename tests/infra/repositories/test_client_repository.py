@@ -4,7 +4,8 @@ from types import SimpleNamespace
 from src.domain.entities.client_entity import ClientEntity
 from src.infra.exceptions.fail_persist_on_database import FailPersistOnDatabase
 from src.infra.exceptions.fail_search_on_database import FailSearchOnDatabase
-from src.infra.repositories.client_repository import ClientRepository
+from src.infra.exceptions.fail_update_on_database import FailUpdateOnDatabase
+from src.infra.database.repositories.client.client_repository import ClientRepository
 
 
 class FakeClientDelegate:
@@ -12,6 +13,7 @@ class FakeClientDelegate:
         self.records: list[dict] = []
         self.should_fail_on_create = False
         self.should_fail_on_find = False
+        self.should_fail_on_update = False
 
     async def create(self,data: dict) -> object:
         if self.should_fail_on_create:
@@ -32,6 +34,19 @@ class FakeClientDelegate:
 
         return None
 
+    async def update(self,where: dict,data: dict) -> object:
+        if self.should_fail_on_update:
+            raise RuntimeError("database unavailable")
+
+        client_id = where["client_id"]
+
+        for record in self.records:
+            if record["client_id"] == client_id:
+                record.update(data)
+                return SimpleNamespace(**record)
+
+        raise RuntimeError("client not found")
+
 
 class PrismaClient:
     def __init__(self) -> None:
@@ -39,7 +54,7 @@ class PrismaClient:
 
 
 class TestClientRepository(unittest.IsolatedAsyncioTestCase):
-    async def test_save_persists_client_and_returns_public_object(self):
+    async def test_save_persists_client_and_returns_none(self):
         db = PrismaClient()
         repository = ClientRepository(db)
         client = ClientEntity.create(
@@ -54,11 +69,7 @@ class TestClientRepository(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(len(db.client.records),1)
         self.assertEqual(db.client.records[0]["email"],"lucas@email.com")
         self.assertEqual(db.client.records[0]["asset_value"],250000)
-        self.assertEqual(saved_client["client_id"],str(client.client_id))
-        self.assertEqual(saved_client["name"],"Lucas")
-        self.assertEqual(saved_client["email"],"lucas@email.com")
-        self.assertEqual(saved_client["type_request"],"Atualizacao cadastral")
-        self.assertEqual(saved_client["asset_value"],250000)
+        self.assertIsNone(saved_client)
 
     async def test_find_by_email_returns_restored_client(self):
         db = PrismaClient()
@@ -84,6 +95,24 @@ class TestClientRepository(unittest.IsolatedAsyncioTestCase):
 
         self.assertIsNone(found_client)
 
+    async def test_update_by_id_updates_client_and_returns_none(self):
+        db = PrismaClient()
+        repository = ClientRepository(db)
+        client = ClientEntity.create(
+            name="Lucas",
+            email="lucas@email.com",
+            type_request="Atualizacao cadastral",
+            asset_value=250000,
+        )
+
+        await repository.save(client)
+        client.process()
+        updated_client = await repository.update_by_id(client)
+
+        self.assertIsNone(updated_client)
+        self.assertEqual(db.client.records[0]["status"],"Processado")
+        self.assertEqual(db.client.records[0]["priority"],"prioridade_alta")
+
     async def test_save_raises_infra_exception_when_database_fails(self):
         db = PrismaClient()
         db.client.should_fail_on_create = True
@@ -105,6 +134,20 @@ class TestClientRepository(unittest.IsolatedAsyncioTestCase):
 
         with self.assertRaises(FailSearchOnDatabase):
             await repository.find_by_email("lucas@email.com")
+
+    async def test_update_by_id_raises_infra_exception_when_database_fails(self):
+        db = PrismaClient()
+        db.client.should_fail_on_update = True
+        repository = ClientRepository(db)
+        client = ClientEntity.create(
+            name="Lucas",
+            email="lucas@email.com",
+            type_request="Atualizacao cadastral",
+            asset_value=250000,
+        )
+
+        with self.assertRaises(FailUpdateOnDatabase):
+            await repository.update_by_id(client)
 
 
 if __name__ == "__main__":

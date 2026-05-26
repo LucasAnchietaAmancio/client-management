@@ -1,6 +1,5 @@
 from src.domain.entities.client_entity import ClientEntity
 
-
 class ClientRepositoryMapper:
 
     @staticmethod
@@ -15,15 +14,6 @@ class ClientRepositoryMapper:
             priority=record.priority,
         )
 
-    @staticmethod
-    def to_public(record: object) -> dict[str, object]:
-        return {
-            "client_id": record.client_id,
-            "name": record.name,
-            "email": record.email,
-            "type_request": record.type_request,
-            "asset_value": record.asset_value,
-        }
     @staticmethod
     def to_persistence(client_entity: ClientEntity) -> dict:
         return {
