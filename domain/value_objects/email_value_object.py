@@ -8,7 +8,7 @@ class EmailValueObject:
 
     def __init__(self,value: str) -> None:
 
-        if not isinstance(value,str):
+        if not isinstance(value, str):
             raise TypeMismatch("Email must be a string")
 
         normalized_value = value.strip().lower()

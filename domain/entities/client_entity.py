@@ -7,7 +7,6 @@ from domain.value_objects.type_request_value_object import TypeRequestValueObjec
 from domain.enums.client_status_enum import ClientStatusEnum
 from domain.enums.client_priority_enum import ClientPriorityEnum
 
-
 class ClientEntity:
     def __init__(self,client_id: uuid.UUID,name: NameValueObject,email: EmailValueObject,type_request: TypeRequestValueObject,asset_value: AssetValueObject,status: ClientStatusEnum,priority: ClientPriorityEnum):
         self.client_id = client_id

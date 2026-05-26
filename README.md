@@ -56,6 +56,14 @@ Payload esperado:
 }
 ```
 
+Observacao: este payload e uma simulacao simplificada para o teste tecnico. Na documentacao oficial do Pipefy, o webhook de atualizacao de campo usa a action `card.field_update` e envia os dados dentro de `data`, incluindo `data.action`, `data.field`, `data.new_value`, `data.updated_by` e `data.card`.
+
+Referencias oficiais:
+
+- Pipefy Developers - Pipe & Table Webhooks: https://developers.pipefy.com/reference/pipe-table-webhooks
+- Pipefy GraphQL API - Webhook object: https://api-docs.pipefy.com/reference/objects/Webhook/
+- Pipefy Help Center - How to use webhooks: https://help.pipefy.com/en/articles/729719-how-to-use-webhooks-in-pipefy
+
 Responsabilidades:
 
 - Garantir idempotencia pelo `event_id`.
