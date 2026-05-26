@@ -1,17 +1,17 @@
 import unittest
 
-from application.contracts.client_repository_contract import ClientRepositoryContract
-from application.use_cases.client.dtos.create_client_request_dto import CreateClientRequestDto
-from application.use_cases.client.dtos.create_client_response_dto import CreateClientResponseDto
-from application.use_cases.client.create_client_use_case import CreateClientUseCase
-from domain.entities.client_entity import ClientEntity
+from src.application.contracts.client_repository_contract import ClientRepositoryContract
+from src.application.use_cases.client.dtos.create_client_request_dto import CreateClientRequestDto
+from src.application.use_cases.client.dtos.create_client_response_dto import CreateClientResponseDto
+from src.application.use_cases.client.create_client_use_case import CreateClientUseCase
+from src.domain.entities.client_entity import ClientEntity
 
 
 class InMemoryClientRepository(ClientRepositoryContract):
     def __init__(self) -> None:
         self.clients: list[ClientEntity] = []
 
-    async def save(self,client_entity: ClientEntity) -> object:
+    async def save(self,client_entity: ClientEntity) -> dict[str, object]:
         self.clients.append(client_entity)
         return {
             "client_id": str(client_entity.client_id),
@@ -27,6 +27,15 @@ class InMemoryClientRepository(ClientRepositoryContract):
                 return client
 
         return None
+
+    async def update(self,client_entity: ClientEntity) -> dict[str, object]:
+        return {
+            "client_id": str(client_entity.client_id),
+            "name": client_entity.name.value,
+            "email": client_entity.email.value,
+            "type_request": client_entity.type_request.value,
+            "asset_value": client_entity.asset_value.value,
+        }
 
 
 class TestCreateClientUseCase(unittest.IsolatedAsyncioTestCase):

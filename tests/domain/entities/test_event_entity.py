@@ -1,6 +1,6 @@
 import unittest
 
-from domain.entities.event_entity import EventEntity
+from src.domain.entities.event_entity import EventEntity
 
 class TestEventEntity(unittest.TestCase):
     def test_create_event(self):

@@ -1,15 +1,15 @@
 import unittest
 
-from domain.exceptions.asset_value_not_accept import AssetValueNotAccept
-from domain.exceptions.type_mismatch import TypeMismatch
-from domain.exceptions.invalid_email import InvalidEmail
-from domain.exceptions.invalid_value import InvalidValue
-from domain.exceptions.empty_value import EmptyValue
+from src.domain.exceptions.asset_value_not_accept import AssetValueNotAccept
+from src.domain.exceptions.type_mismatch import TypeMismatch
+from src.domain.exceptions.invalid_email import InvalidEmail
+from src.domain.exceptions.invalid_value import InvalidValue
+from src.domain.exceptions.empty_value import EmptyValue
 
-from domain.value_objects.asset_value_object import AssetValueObject
-from domain.value_objects.email_value_object import EmailValueObject
-from domain.value_objects.name_value_object import NameValueObject
-from domain.value_objects.type_request_value_object import TypeRequestValueObject
+from src.domain.value_objects.asset_value_object import AssetValueObject
+from src.domain.value_objects.email_value_object import EmailValueObject
+from src.domain.value_objects.name_value_object import NameValueObject
+from src.domain.value_objects.type_request_value_object import TypeRequestValueObject
 
 
 class TestValueObjects(unittest.TestCase):

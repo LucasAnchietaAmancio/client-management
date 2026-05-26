@@ -1,8 +1,8 @@
 import unittest
 
-from domain.entities.client_entity import ClientEntity
-from domain.enums.client_priority_enum import ClientPriorityEnum
-from domain.enums.client_status_enum import ClientStatusEnum
+from src.domain.entities.client_entity import ClientEntity
+from src.domain.enums.client_priority_enum import ClientPriorityEnum
+from src.domain.enums.client_status_enum import ClientStatusEnum
 
 
 class TestClientEntity(unittest.TestCase):

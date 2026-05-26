@@ -1,4 +1,4 @@
-from domain.value_objects.email_value_object import EmailValueObject
+from src.domain.value_objects.email_value_object import EmailValueObject
 
 class EventEntity:
     def __init__(self,event_id: str,card_id: str,client_email: EmailValueObject,timestamp: str) -> None:

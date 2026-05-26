@@ -1,12 +1,11 @@
 import uuid
 
-from domain.value_objects.name_value_object import NameValueObject
-from domain.value_objects.email_value_object import EmailValueObject
-from domain.value_objects.asset_value_object import AssetValueObject
-from domain.value_objects.type_request_value_object import TypeRequestValueObject
-from domain.enums.client_status_enum import ClientStatusEnum
-from domain.enums.client_priority_enum import ClientPriorityEnum
-
+from src.domain.value_objects.name_value_object import NameValueObject
+from src.domain.value_objects.email_value_object import EmailValueObject
+from src.domain.value_objects.asset_value_object import AssetValueObject
+from src.domain.value_objects.type_request_value_object import TypeRequestValueObject
+from src.domain.enums.client_status_enum import ClientStatusEnum
+from src.domain.enums.client_priority_enum import ClientPriorityEnum
 class ClientEntity:
     def __init__(self,client_id: uuid.UUID,name: NameValueObject,email: EmailValueObject,type_request: TypeRequestValueObject,asset_value: AssetValueObject,status: ClientStatusEnum,priority: ClientPriorityEnum):
         self.client_id = client_id
@@ -18,7 +17,7 @@ class ClientEntity:
         self.priority = priority
 
     @staticmethod
-    def create(name: str,email: str,type_request: str,asset_value: int) -> "ClientEntity":
+    def create(name: str, email: str,type_request: str,asset_value: int) -> "ClientEntity":
         return ClientEntity(
             client_id=uuid.uuid4(),
             name=NameValueObject(name),

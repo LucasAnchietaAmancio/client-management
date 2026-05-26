@@ -1,7 +1,7 @@
 import re
 
-from domain.exceptions.invalid_email import InvalidEmail
-from domain.exceptions.type_mismatch import TypeMismatch
+from src.domain.exceptions.invalid_email import InvalidEmail
+from src.domain.exceptions.type_mismatch import TypeMismatch
 
 class EmailValueObject:
     EMAIL_REGEX = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")

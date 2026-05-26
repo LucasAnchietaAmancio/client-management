@@ -1,5 +1,5 @@
-from domain.exceptions.type_mismatch import TypeMismatch
-from domain.exceptions.asset_value_not_accept import AssetValueNotAccept
+from src.domain.exceptions.type_mismatch import TypeMismatch
+from src.domain.exceptions.asset_value_not_accept import AssetValueNotAccept
 
 class AssetValueObject:
     def __init__(self,value: int) -> None:

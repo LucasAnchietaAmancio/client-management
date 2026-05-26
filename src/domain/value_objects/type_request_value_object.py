@@ -1,5 +1,5 @@
-from domain.exceptions.empty_value import EmptyValue
-from domain.exceptions.type_mismatch import TypeMismatch
+from src.domain.exceptions.empty_value import EmptyValue
+from src.domain.exceptions.type_mismatch import TypeMismatch
 
 
 class TypeRequestValueObject:

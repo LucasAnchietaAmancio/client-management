@@ -1,6 +1,6 @@
-from domain.exceptions.type_mismatch import TypeMismatch
-from domain.exceptions.empty_value import EmptyValue
-from domain.exceptions.invalid_value import InvalidValue
+from src.domain.exceptions.type_mismatch import TypeMismatch
+from src.domain.exceptions.empty_value import EmptyValue
+from src.domain.exceptions.invalid_value import InvalidValue
 
 class NameValueObject:
     def __init__(self,value: str) -> None:

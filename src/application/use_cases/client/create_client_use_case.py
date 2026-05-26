@@ -1,8 +1,8 @@
-from application.contracts.client_repository_contract import ClientRepositoryContract
-from domain.entities.client_entity import ClientEntity
-from application.exceptions.client_already_exists import ClientAlreadyExists
-from application.use_cases.client.dtos.create_client_request_dto import CreateClientRequestDto
-from application.use_cases.client.dtos.create_client_response_dto import CreateClientResponseDto
+from src.application.contracts.client_repository_contract import ClientRepositoryContract
+from src.domain.entities.client_entity import ClientEntity
+from src.application.exceptions.client_already_exists import ClientAlreadyExists
+from src.application.use_cases.client.dtos.create_client_request_dto import CreateClientRequestDto
+from src.application.use_cases.client.dtos.create_client_response_dto import CreateClientResponseDto
 
 class CreateClientUseCase:
     def __init__(self,client_repository: ClientRepositoryContract) -> None:
