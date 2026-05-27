@@ -1,6 +1,6 @@
 from src.application.contracts.create_client_use_case_contract import CreateClientUseCaseContract
 from src.application.use_cases.client.dtos.create_client_request_dto import CreateClientRequestDto
-from src.presentation.http.schema.create_client_schema import CreateClientRequestSchema
+from schema.client.create_client_schema import CreateClientRequestSchema
 
 
 class CreateClientController:

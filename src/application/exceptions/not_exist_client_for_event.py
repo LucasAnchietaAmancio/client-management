@@ -5,4 +5,5 @@ class NotExistClientForEvent(ApplicationValidation):
         super().__init__(
             message=message,
             tag="NOT_EXIST_CLIENT_FOR_EVENT",
+            error_type="NOT_FOUND",
         )

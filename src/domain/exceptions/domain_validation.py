@@ -1,8 +1,11 @@
 
-class DomainValidation(Exception):
+from src.shared.errors.app_error import AppError
+
+class DomainValidation(AppError):
     def __init__(self,message: str,tag: str = "DOMAIN_VALIDATION") -> None:
-        self.tag = tag
-        self.category = "DOMAIN"
-        self.type = "VALIDATION"
-        self.message = message
-        super().__init__(self.message)
+        super().__init__(
+            message=message,
+            code=tag,
+            category="DOMAIN",
+            error_type="VALIDATION",
+        )

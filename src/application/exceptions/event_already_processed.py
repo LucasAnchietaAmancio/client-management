@@ -5,4 +5,5 @@ class EventAlreadyProcessed(ApplicationValidation):
         super().__init__(
             message=message,
             tag="EVENT_ALREADY_PROCESSED",
+            error_type="CONFLICT",
         )

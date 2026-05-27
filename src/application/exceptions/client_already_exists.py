@@ -5,4 +5,5 @@ class ClientAlreadyExists(ApplicationValidation):
         super().__init__(
             message=message,
             tag="CLIENT_ALREADY_EXISTS",
+            error_type="CONFLICT",
         )

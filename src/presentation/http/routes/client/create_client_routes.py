@@ -1,7 +1,7 @@
 from typing import Any, Callable
 
-from src.presentation.http.controllers.create_client_controller import CreateClientController
-from ..schema.create_client_schema import CreateClientRequestSchema
+from controllers.client.create_client_controller import CreateClientController
+from schema.client.create_client_schema import CreateClientRequestSchema
 
 
 class CreateClientRoute:
