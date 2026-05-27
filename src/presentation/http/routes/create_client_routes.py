@@ -5,7 +5,13 @@ from ..schema.create_client_schema import CreateClientRequestSchema
 
 
 class CreateClientRoute:
-    def __init__(self,router: Any,depends: Callable[..., Any],controller_factory: Callable[[], CreateClientController],created_status_code: int) -> None:
+    def __init__(
+        self,
+        router: Any,
+        depends: Callable[..., Any],
+        controller_factory: Callable[[], CreateClientController],
+        created_status_code: int,
+    ) -> None:
         self.router = router
         self.depends = depends
         self.controller_factory = controller_factory
@@ -15,7 +21,10 @@ class CreateClientRoute:
         controller_dependency = self.depends(self.controller_factory)
 
         @self.router.post("/clientes", status_code=self.created_status_code)
-        async def handle(body: CreateClientRequestSchema, controller: CreateClientController = controller_dependency) -> dict[str, object]:
-            return await controller.handle(body)
+        async def handle(
+            request: CreateClientRequestSchema,
+            controller: CreateClientController = controller_dependency,
+        ) -> dict[str, object]:
+            return await controller.handle(request)
 
         return self.router

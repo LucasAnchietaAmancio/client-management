@@ -4,10 +4,10 @@ from src.presentation.http.schema.create_client_schema import CreateClientReques
 
 
 class CreateClientController:
-    def __init__(self,create_client_use_case: CreateClientUseCaseContract) -> None:
+    def __init__(self, create_client_use_case: CreateClientUseCaseContract) -> None:
         self.create_client_use_case = create_client_use_case
 
-    async def handle(self,request: CreateClientRequestSchema) -> dict[str, object]:
+    async def handle(self, request: CreateClientRequestSchema) -> dict[str, object]:
         create_client_request_dto = CreateClientRequestDto(
             client_name=request.client_name,
             client_email=request.client_email,
