@@ -26,10 +26,10 @@ class FakeClientDelegate:
         if self.should_fail_on_find:
             raise RuntimeError("database unavailable")
 
-        email = where["email"]
+        client_email = where["client_email"]
 
         for record in self.records:
-            if record["email"] == email:
+            if record["client_email"] == client_email:
                 return SimpleNamespace(**record)
 
         return None
@@ -58,8 +58,8 @@ class TestClientRepository(unittest.IsolatedAsyncioTestCase):
         db = PrismaClient()
         repository = ClientRepository(db)
         client = ClientEntity.create(
-            name="Lucas",
-            email="lucas@email.com",
+            client_name="Lucas",
+            client_email="lucas@email.com",
             type_request="Atualizacao cadastral",
             asset_value=250000,
         )
@@ -67,31 +67,31 @@ class TestClientRepository(unittest.IsolatedAsyncioTestCase):
         saved_client = await repository.save(client)
 
         self.assertEqual(len(db.client.records),1)
-        self.assertEqual(db.client.records[0]["email"],"lucas@email.com")
+        self.assertEqual(db.client.records[0]["client_email"],"lucas@email.com")
         self.assertEqual(db.client.records[0]["asset_value"],250000)
         self.assertIsNone(saved_client)
 
-    async def test_find_by_email_returns_restored_client(self):
+    async def test_find_by_client_email_returns_restored_client(self):
         db = PrismaClient()
         repository = ClientRepository(db)
         client = ClientEntity.create(
-            name="Lucas",
-            email="lucas@email.com",
+            client_name="Lucas",
+            client_email="lucas@email.com",
             type_request="Atualizacao cadastral",
             asset_value=250000,
         )
 
         await repository.save(client)
-        found_client = await repository.find_by_email("lucas@email.com")
+        found_client = await repository.find_by_client_email("lucas@email.com")
 
         self.assertIsNotNone(found_client)
-        self.assertEqual(found_client.email.value,"lucas@email.com")
+        self.assertEqual(found_client.client_email.value,"lucas@email.com")
 
-    async def test_find_by_email_returns_none_when_client_does_not_exist(self):
+    async def test_find_by_client_email_returns_none_when_client_does_not_exist(self):
         db = PrismaClient()
         repository = ClientRepository(db)
 
-        found_client = await repository.find_by_email("missing@example.com")
+        found_client = await repository.find_by_client_email("missing@example.com")
 
         self.assertIsNone(found_client)
 
@@ -99,8 +99,8 @@ class TestClientRepository(unittest.IsolatedAsyncioTestCase):
         db = PrismaClient()
         repository = ClientRepository(db)
         client = ClientEntity.create(
-            name="Lucas",
-            email="lucas@email.com",
+            client_name="Lucas",
+            client_email="lucas@email.com",
             type_request="Atualizacao cadastral",
             asset_value=250000,
         )
@@ -118,8 +118,8 @@ class TestClientRepository(unittest.IsolatedAsyncioTestCase):
         db.client.should_fail_on_create = True
         repository = ClientRepository(db)
         client = ClientEntity.create(
-            name="Lucas",
-            email="lucas@email.com",
+            client_name="Lucas",
+            client_email="lucas@email.com",
             type_request="Atualizacao cadastral",
             asset_value=250000,
         )
@@ -127,21 +127,21 @@ class TestClientRepository(unittest.IsolatedAsyncioTestCase):
         with self.assertRaises(FailPersistOnDatabase):
             await repository.save(client)
 
-    async def test_find_by_email_raises_infra_exception_when_database_fails(self):
+    async def test_find_by_client_email_raises_infra_exception_when_database_fails(self):
         db = PrismaClient()
         db.client.should_fail_on_find = True
         repository = ClientRepository(db)
 
         with self.assertRaises(FailSearchOnDatabase):
-            await repository.find_by_email("lucas@email.com")
+            await repository.find_by_client_email("lucas@email.com")
 
     async def test_update_by_id_raises_infra_exception_when_database_fails(self):
         db = PrismaClient()
         db.client.should_fail_on_update = True
         repository = ClientRepository(db)
         client = ClientEntity.create(
-            name="Lucas",
-            email="lucas@email.com",
+            client_name="Lucas",
+            client_email="lucas@email.com",
             type_request="Atualizacao cadastral",
             asset_value=250000,
         )

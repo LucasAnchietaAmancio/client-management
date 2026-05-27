@@ -7,21 +7,21 @@ from src.domain.value_objects.type_request_value_object import TypeRequestValueO
 from src.domain.enums.client_status_enum import ClientStatusEnum
 from src.domain.enums.client_priority_enum import ClientPriorityEnum
 class ClientEntity:
-    def __init__(self,client_id: uuid.UUID,name: NameValueObject,email: EmailValueObject,type_request: TypeRequestValueObject,asset_value: AssetValueObject,status: ClientStatusEnum,priority: ClientPriorityEnum):
+    def __init__(self,client_id: uuid.UUID,client_name: NameValueObject,client_email: EmailValueObject,type_request: TypeRequestValueObject,asset_value: AssetValueObject,status: ClientStatusEnum,priority: ClientPriorityEnum):
         self.client_id = client_id
-        self.name = name
-        self.email = email
+        self.client_name = client_name
+        self.client_email = client_email
         self.type_request = type_request
         self.asset_value = asset_value
         self.status = status
         self.priority = priority
 
     @staticmethod
-    def create(name: str, email: str,type_request: str,asset_value: int) -> "ClientEntity":
+    def create(client_name: str, client_email: str,type_request: str,asset_value: int) -> "ClientEntity":
         return ClientEntity(
             client_id=uuid.uuid4(),
-            name=NameValueObject(name),
-            email=EmailValueObject(email),
+            client_name=NameValueObject(client_name),
+            client_email=EmailValueObject(client_email),
             type_request=TypeRequestValueObject(type_request),
             asset_value=AssetValueObject(asset_value),
             status=ClientStatusEnum.WAITING_ANALYSIS,
@@ -29,11 +29,11 @@ class ClientEntity:
         )
 
     @staticmethod
-    def restore(client_id: str | uuid.UUID, name: str,email: str,type_request: str,asset_value: int,status: str | ClientStatusEnum,priority: str | ClientPriorityEnum,) -> "ClientEntity":
+    def restore(client_id: str | uuid.UUID, client_name: str,client_email: str,type_request: str,asset_value: int,status: str | ClientStatusEnum,priority: str | ClientPriorityEnum,) -> "ClientEntity":
         return ClientEntity(
             client_id=uuid.UUID(str(client_id)),
-            name=NameValueObject(name),
-            email=EmailValueObject(email),
+            client_name=NameValueObject(client_name),
+            client_email=EmailValueObject(client_email),
             type_request=TypeRequestValueObject(type_request),
             asset_value=AssetValueObject(asset_value),
             status=ClientStatusEnum(status),

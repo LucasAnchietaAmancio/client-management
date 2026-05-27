@@ -9,7 +9,7 @@ class ClientRepositoryContract(ABC):
         pass
 
     @abstractmethod
-    async def find_by_email(self,email: str) -> ClientEntity | None:
+    async def find_by_client_email(self,client_email: str) -> ClientEntity | None:
         pass
 
     @abstractmethod

@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class CreateClientResponseDto:
-    name: str
-    email: str
+    client_name: str
+    client_email: str
     type_request: str
     asset_value: int

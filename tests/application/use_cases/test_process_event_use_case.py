@@ -18,9 +18,9 @@ class InMemoryClientRepository(ClientRepositoryContract):
     async def save(self,client_entity: ClientEntity) -> None:
         self.clients.append(client_entity)
 
-    async def find_by_email(self,email: str) -> ClientEntity | None:
+    async def find_by_client_email(self,client_email: str) -> ClientEntity | None:
         for client in self.clients:
-            if client.email.value == email:
+            if client.client_email.value == client_email:
                 return client
 
         return None
@@ -51,8 +51,8 @@ class TestProcessEventUseCase(unittest.IsolatedAsyncioTestCase):
         use_case = ProcessEventUseCase(event_repository,client_repository)
         client_repository.clients.append(
             ClientEntity.create(
-                name="Lucas",
-                email="lucas@email.com",
+                client_name="Lucas",
+                client_email="lucas@email.com",
                 type_request="Atualizacao cadastral",
                 asset_value=250000,
             )

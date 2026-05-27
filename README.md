@@ -22,8 +22,8 @@ Payload esperado:
 
 ```json
 {
-  "cliente_nome": "Joao Silva",
-  "cliente_email": "joao.silva@example.com",
+  "client_name": "Joao Silva",
+  "client_email": "joao.silva@example.com",
   "tipo_solicitacao": "Atualizacao cadastral",
   "valor_patrimonio": 250000
 }
@@ -51,7 +51,7 @@ Payload esperado:
 {
   "event_id": "evt_123",
   "card_id": "card_456",
-  "cliente_email": "joao.silva@example.com",
+  "client_email": "joao.silva@example.com",
   "timestamp": "2026-05-18T12:00:00Z"
 }
 ```
@@ -95,6 +95,7 @@ client-management/
 │   ├── domain/
 │   ├── infra/
 │   └── main/
+│   └── presentation/
 ├── main.py
 └── README.md
 ```
@@ -105,14 +106,15 @@ client-management/
 - `application`: casos de uso da aplicacao.
 - `infra`: banco de dados, repositorios e integracoes externas.
 - `main`: configuracao da aplicacao e exposicao dos endpoints.
+- `presentation`: exposicao dos endpoints.
 - `docs`: documentacao inicial do desafio e regras do sistema.
 
 ## Tecnologias previstas
 
 - Python
 - API REST
-- FastAPI
-- PostgreSQL via docker para ambiente produtivo
+- Fast API
+- PostgreSQL via docker para ambiente produtivo + ORM Prisma
 - GraphQL para mapeamento com Pipefy
 - Testes automatizados
 
@@ -136,8 +138,8 @@ As instrucoes de execucao serao atualizadas conforme a API, banco e testes forem
 curl -X POST http://localhost:8000/clientes \
   -H "Content-Type: application/json" \
   -d '{
-    "cliente_nome": "Joao Silva",
-    "cliente_email": "joao.silva@example.com",
+    "client_name": "Joao Silva",
+    "client_email": "joao.silva@example.com",
     "tipo_solicitacao": "Atualizacao cadastral",
     "valor_patrimonio": 250000
   }'
@@ -151,7 +153,7 @@ curl -X POST http://localhost:8000/webhooks/pipefy/card-updated \
   -d '{
     "event_id": "evt_123",
     "card_id": "card_456",
-    "cliente_email": "joao.silva@example.com",
+    "client_email": "joao.silva@example.com",
     "timestamp": "2026-05-18T12:00:00Z"
   }'
 ```

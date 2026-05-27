@@ -20,11 +20,11 @@ class ClientRepository(ClientRepositoryContract):
                 message="Failed to save client",
                 external_error=error)
 
-    async def find_by_email(self,email: str) -> ClientEntity | None:
+    async def find_by_client_email(self,client_email: str) -> ClientEntity | None:
         try:
             record = await self.db.client.find_unique(
                 where={
-                    "email": email,
+                    "client_email": client_email,
                 }
             )
             if record is None:
@@ -34,7 +34,7 @@ class ClientRepository(ClientRepositoryContract):
 
         except Exception as error:
             raise FailSearchOnDatabase(
-                message="Failed to search client by email",
+                message="Failed to search client by client_email",
                 external_error=error)
 
     async def update_by_id(self,client_entity: ClientEntity) -> None:

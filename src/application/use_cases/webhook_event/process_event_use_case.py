@@ -1,12 +1,13 @@
 from src.application.contracts.client_repository_contract import ClientRepositoryContract
 from src.application.contracts.event_repository_contract import EventRepositoryContract
+from src.application.contracts.process_event_use_case_contract import ProcessEventUseCaseContract
 from src.application.exceptions.event_already_processed import EventAlreadyProcessed
 from src.application.exceptions.not_exist_client_for_event import NotExistClientForEvent
 from src.application.use_cases.webhook_event.dtos.process_pipefy_webhook_request_dto import ProcessPipefyWebhookRequestDto
 from src.application.use_cases.webhook_event.dtos.process_pipefy_webhook_response_dto import ProcessPipefyWebhookResponseDto
 from src.domain.entities.event_entity import EventEntity
 
-class ProcessEventUseCase:
+class ProcessEventUseCase(ProcessEventUseCaseContract):
     
     def __init__(self,event_repository: EventRepositoryContract,client_repository: ClientRepositoryContract) -> None:
         self.event_repository = event_repository
@@ -25,7 +26,7 @@ class ProcessEventUseCase:
         if event_already_processed:
             raise EventAlreadyProcessed("A event was already processed, please try again with new event_id")
 
-        client_from_event = await self.client_repository.find_by_email(event.client_email.value)
+        client_from_event = await self.client_repository.find_by_client_email(event.client_email.value)
 
         if client_from_event is None:
             raise NotExistClientForEvent("Not exist client for event sended")

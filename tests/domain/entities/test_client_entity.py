@@ -8,22 +8,22 @@ from src.domain.enums.client_status_enum import ClientStatusEnum
 class TestClientEntity(unittest.TestCase):
     def test_create_client_with_initial_status(self):
         client = ClientEntity.create(
-            name="Lucas",
-            email="LUCAS@email.com",
+            client_name="Lucas",
+            client_email="LUCAS@email.com",
             type_request="Atualizacao cadastral",
             asset_value=250000,
         )
 
-        self.assertEqual(client.name.value,"Lucas")
-        self.assertEqual(client.email.value,"lucas@email.com")
+        self.assertEqual(client.client_name.value,"Lucas")
+        self.assertEqual(client.client_email.value,"lucas@email.com")
         self.assertEqual(client.type_request.value,"Atualizacao cadastral")
         self.assertEqual(client.status,ClientStatusEnum.WAITING_ANALYSIS)
         self.assertEqual(client.priority,ClientPriorityEnum.NOT_PROCESSING)
 
     def test_process_client_with_high_priority(self):
         client = ClientEntity.create(
-            name="Lucas",
-            email="lucas@email.com",
+            client_name="Lucas",
+            client_email="lucas@email.com",
             type_request="Atualizacao cadastral",
             asset_value=250000,
         )
@@ -35,8 +35,8 @@ class TestClientEntity(unittest.TestCase):
 
     def test_process_client_with_normal_priority(self):
         client = ClientEntity.create(
-            name="Maria Souza",
-            email="maria.souza@example.com",
+            client_name="Maria Souza",
+            client_email="maria.souza@example.com",
             type_request="Atualizacao cadastral",
             asset_value=150000,
         )
@@ -49,8 +49,8 @@ class TestClientEntity(unittest.TestCase):
     def test_restore_client_from_database_values(self):
         client = ClientEntity.restore(
             client_id="11111111-1111-1111-1111-111111111111",
-            name="Lucas",
-            email="lucas@email.com",
+            client_name="Lucas",
+            client_email="lucas@email.com",
             type_request="Atualizacao cadastral",
             asset_value=250000,
             status="Processado",

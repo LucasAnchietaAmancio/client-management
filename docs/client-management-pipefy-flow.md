@@ -6,8 +6,8 @@
 
 ### Entrada
 `POST /clientes` com os campos:
-- `cliente_nome`
-- `cliente_email`
+- `client_name`
+- `client_email`
 - `tipo_solicitacao`
 - `valor_patrimonio`
 
@@ -30,14 +30,14 @@
 8. A `ClientEntity` nasce com:
    - `status = Aguardando Análise`
    - `prioridade = prioridade_nao_processada`
-9. O `CreateClientUseCase` chama `ClientRepository.find_by_email` para verificar duplicidade.
+9. O `CreateClientUseCase` chama `ClientRepository.find_by_client_email` para verificar duplicidade.
 10. **Se o e-mail já existir:**
     - O use case lança `ClientAlreadyExists`
     - O fluxo é encerrado com erro
 11. **Se o e-mail não existir:**
     - O use case chama `ClientRepository.save`
 12. O `ClientRepository` monta o objeto de persistência para o Prisma:
-    - `client_id`, `name`, `email`, `type_request`, `asset_value`, `status`, `priority`
+    - `client_id`, `client_name`, `client_email`, `type_request`, `asset_value`, `status`, `priority`
 13. O `ClientRepository` salva o cliente no banco via Prisma.
 14. **Se ocorrer erro ao salvar:**
     - O repository lança `FailPersistOnDatabase`
@@ -55,7 +55,7 @@
 `POST /webhooks/pipefy/card-updated` com os campos:
 - `event_id`
 - `card_id`
-- `cliente_email`
+- `client_email`
 - `timestamp`
 
 ### Passo a Passo
@@ -71,7 +71,7 @@
    - O Controller retorna resposta informando evento ignorado
 8. **Se o `event_id` não existir:**
    - O use case continua o processamento
-9. O use case chama `ClientRepository.find_by_email` usando `cliente_email`.
+9. O use case chama `ClientRepository.find_by_client_email` usando `client_email`.
 10. **Se o cliente não for encontrado:**
     - O use case lança exceção `ClientNotFound`
     - O fluxo é encerrado com erro
@@ -85,14 +85,14 @@
 15. O use case chama `ClientRepository.update` para salvar status e prioridade.
 16. **Se ocorrer erro ao atualizar:**
     - O repository lança exceção de infraestrutura
-17. O use case cria uma `WebhookEventEntity` com: `event_id`, `card_id`, `cliente_email`, `timestamp`.
+17. O use case cria uma `WebhookEventEntity` com: `event_id`, `card_id`, `client_email`, `timestamp`.
 18. O use case chama `WebhookEventRepository.save` para registrar o evento.
 19. Esse registro garante **idempotência** para futuras chamadas com o mesmo `event_id`.
 20. **Se ocorrer erro ao salvar o evento:**
     - O repository lança exceção de infraestrutura
 21. *(Futuro)* Nesse fluxo, a camada Pipefy poderá montar a mutation GraphQL `updateCardField` com `status` e `prioridade`.
 22. O use case retorna o resultado para o Controller.
-23. O Controller responde com: `event_id`, `card_id`, `cliente_email`, `status = Processado`, prioridade calculada.
+23. O Controller responde com: `event_id`, `card_id`, `client_email`, `status = Processado`, prioridade calculada.
 
 ---
 
