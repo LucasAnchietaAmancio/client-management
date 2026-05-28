@@ -2,7 +2,7 @@
 
 Projeto desenvolvido para o teste tecnico de Backend do fluxo de Client Management. O projeto usa uma conta Pipefy ja existente no ambiente de desenvolvimento para validar o fluxo de ponta a ponta, mantendo a mesma estrutura de mutations GraphQL exigida no teste.
 
-Embora o enunciado permita simular o Pipefy localmente, optei por uma validacao real no ambiente de desenvolvimento para demonstrar o fluxo completo entre API, banco local e Pipefy. A aplicacao tambem suporta modo mock para execucao local sem integracao externa.
+Embora o enunciado fale simular o Pipefy localmente, optei por uma validacao real no ambiente de desenvolvimento para demonstrar o fluxo completo entre API, banco local e Pipefy. A aplicacao tambem suporta modo mock para execucao local sem integracao externa.
 
 A aplicacao gerencia clientes, patrimonio investido e processamento de eventos de card. A persistencia local e feita em PostgreSQL via Docker, usando Prisma Client Python.
 
@@ -161,28 +161,22 @@ Regras aplicadas:
 - Docker
 - PostgreSQL via `docker-compose`
 
-## Variaveis de ambiente
-
-Crie um arquivo `.env` na raiz com:
-
-```env
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_DB=cldb
-POSTGRES_PORT=5432
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/cldb
-
-PIPEFY_API_URL=https://api.pipefy.com/graphql
-PIPEFY_TOKEN=seu_token_pipefy
-PIPEFY_CLIENT_MANAGEMENT_PIPE_ID=seu_id_pipe
-PIPEFY_MODE=development
-```
-
-`PIPEFY_MODE=development` usa o `MockPipefyGateway` e evita chamadas reais ao Pipefy. Se a variavel estiver ausente ou diferente disso, a aplicacao usa a integracao real.
-
 ## Passo a passo completo
 
-### 1. Preparar o Pipefy
+### 1. Copiar Repositorio
+Copie o repositório:
+
+```bash
+git clone https://github.com/LucasAnchietaAmancio/client-management.git
+```
+
+## 2. Variaveis de ambiente
+
+Crie um arquivo `.env` na raiz com base no .env.exemple
+
+`PIPEFY_MODE=development` usa o `MockPipefyGateway` e evita chamadas reais ao Pipefy. Se a variavel estiver ausente ou diferente disso, a aplicacao usa a integracao real ou seja caso queira usar a integração real é só fazer `PIPEFY_MODE=` e subir o container.
+
+### 3. Preparar o Pipefy
 
 Antes de subir a API, configure no Pipefy o pipe que vai representar os clientes do sistema.
 
@@ -196,22 +190,15 @@ Neste projeto, esses IDs sao montados em `src/infra/pipefy/utils/build_mutation_
 
 Se voce quiser apenas validar o projeto localmente sem enviar nada ao Pipefy, deixe `PIPEFY_MODE=development`.
 
-### 2. Subir a aplicacao via Docker
+### 4. Subir a aplicacao via Docker
 
-Suba o projeto completo com um comando:
+Suba o projeto para validar:
 
 ```bash
 docker compose up --build
 ```
 
-Esse comando:
-
-- sobe o PostgreSQL
-- gera o Prisma Client
-- aplica o schema no banco
-- inicia a API em `0.0.0.0:8000`
-
-### 3. Acessar a API
+### 5. Acessar a API
 
 Documentacao interativa:
 
@@ -219,7 +206,7 @@ Documentacao interativa:
 http://localhost:8000/docs
 ```
 
-### 4. Criar o card no Pipefy pelo endpoint de cliente
+### 6. Criar o card no Pipefy pelo endpoint de cliente
 
 O card e criado quando voce chama o endpoint de cadastro:
 
@@ -247,7 +234,7 @@ Nesse momento:
 - a mutation `createCard` e enviada ao Pipefy pelo provider HTTP
 - a resposta do Pipefy e exibida no log do processo ou no console do mock
 
-### 5. Simular o webhook de atualizacao do card
+### 7. Simular o webhook de atualizacao do card
 
 Depois que o card existe, simule a alteracao do card pelo endpoint de webhook:
 
@@ -332,7 +319,7 @@ Resposta esperada:
 Execute:
 
 ```bash
-python -m unittest discover
+docker compose exec app python -m unittest
 ```
 
 Coberturas principais:
