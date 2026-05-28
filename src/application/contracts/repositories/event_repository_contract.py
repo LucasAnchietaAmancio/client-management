@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-
 from src.domain.entities.event_entity import EventEntity
 
 class EventRepositoryContract(ABC):

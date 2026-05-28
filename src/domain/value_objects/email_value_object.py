@@ -1,5 +1,4 @@
 import re
-
 from src.domain.exceptions.invalid_email import InvalidEmail
 from src.domain.exceptions.type_mismatch import TypeMismatch
 

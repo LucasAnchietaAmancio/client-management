@@ -1,11 +1,11 @@
 import uuid
-
 from src.domain.value_objects.name_value_object import NameValueObject
 from src.domain.value_objects.email_value_object import EmailValueObject
 from src.domain.value_objects.asset_value_object import AssetValueObject
 from src.domain.value_objects.type_request_value_object import TypeRequestValueObject
 from src.domain.enums.client_status_enum import ClientStatusEnum
 from src.domain.enums.client_priority_enum import ClientPriorityEnum
+
 class ClientEntity:
     def __init__(self,client_id: uuid.UUID,client_name: NameValueObject,client_email: EmailValueObject,type_request: TypeRequestValueObject,asset_value: AssetValueObject,status: ClientStatusEnum,priority: ClientPriorityEnum):
         self.client_id = client_id

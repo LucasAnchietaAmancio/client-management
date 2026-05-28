@@ -1,5 +1,4 @@
 from typing import Any
-
 from src.shared.errors.app_error import AppError
 
 class GlobalExceptionMiddleware:

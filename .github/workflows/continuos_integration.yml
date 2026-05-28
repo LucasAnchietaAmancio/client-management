@@ -1,0 +1,28 @@
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  continuos-integration:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: "Checkout of project"
+        uses: actions/checkout@v6
+
+      - name: "Install python"
+        uses: actions/setup-python@v6
+        with:
+          python-version: 3.13
+
+      - name: "Install requirements.txt"
+        run: pip install -r requirements.txt
+
+      - name: "Execute tests"
+        run: python -m unittest
+

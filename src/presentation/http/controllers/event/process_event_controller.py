@@ -1,5 +1,4 @@
-from src.application.contracts.process_event_use_case_contract import ProcessEventUseCaseContract
-
+from src.application.contracts.use_cases.process_event_use_case_contract import ProcessEventUseCaseContract
 from src.application.use_cases.event.dtos.process_pipefy_webhook_request_dto import ProcessPipefyWebhookRequestDto
 from src.presentation.http.schema.event.process_event_schema import ProcessEventSchema
 

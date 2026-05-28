@@ -1,5 +1,4 @@
 from typing import Any, Callable
-
 from src.presentation.http.controllers.client.create_client_controller import CreateClientController
 from src.presentation.http.schema.client.create_client_schema import CreateClientRequestSchema
 

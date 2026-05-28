@@ -1,5 +1,4 @@
 from typing import Any, Callable
-
 from src.presentation.http.controllers.event.process_event_controller import ProcessEventController
 from src.presentation.http.schema.event.process_event_schema import ProcessEventSchema
 

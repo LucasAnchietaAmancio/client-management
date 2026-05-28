@@ -14,13 +14,13 @@ datasource db {
 }
 
 model Client {
-  client_id    String @id
+  client_id    String  @id
   client_name  String
-  client_email String @unique
+  client_email String  @unique
   type_request String
   asset_value  Int
   status       String
-  priority     String
+  priority     String?
 }
 
 model Event {

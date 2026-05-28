@@ -1,11 +1,12 @@
-from src.application.contracts.event_repository_contract import EventRepositoryContract
+from typing import Any
+from src.application.contracts.repositories.event_repository_contract import EventRepositoryContract
 from src.domain.entities.event_entity import EventEntity
 from src.infra.database.mappers.event.event_repository_mapper import EventRepositoryMapper
 from src.infra.exceptions.fail_persist_on_database import FailPersistOnDatabase
 from src.infra.exceptions.fail_search_on_database import FailSearchOnDatabase
 
 class EventRepository(EventRepositoryContract):
-    def __init__(self,db: "PrismaClient") -> None:
+    def __init__(self,db: Any) -> None:
         self.db = db
 
     async def save(self,event_entity: EventEntity) -> None:

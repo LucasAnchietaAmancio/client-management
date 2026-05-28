@@ -45,7 +45,7 @@ class FakeClientDelegate:
                 record.update(data)
                 return SimpleNamespace(**record)
 
-        raise RuntimeError("client not found")
+        raise RuntimeError("use_cases not found")
 
 
 class PrismaClient:

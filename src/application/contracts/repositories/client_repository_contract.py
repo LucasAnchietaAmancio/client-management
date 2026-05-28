@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-
 from src.domain.entities.client_entity import ClientEntity
 
 class ClientRepositoryContract(ABC):

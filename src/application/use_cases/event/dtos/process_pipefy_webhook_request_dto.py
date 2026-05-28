@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 
-
 @dataclass(frozen=True)
 class ProcessPipefyWebhookRequestDto:
     event_id: str

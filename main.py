@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Depends, FastAPI, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
-
 from src.main.app import App
 from src.main.factories.database.prisma_client_factory import make_prisma_client
 

@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-
 from src.application.use_cases.event.dtos.process_pipefy_webhook_request_dto import (ProcessPipefyWebhookRequestDto)
 from src.application.use_cases.event.dtos.process_pipefy_webhook_response_dto import (ProcessPipefyWebhookResponseDto)
 

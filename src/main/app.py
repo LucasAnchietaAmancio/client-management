@@ -1,5 +1,4 @@
 from typing import Any
-
 from ..presentation.http.middlewares.global_exception_middleware import GlobalExceptionMiddleware
 from src.main.factories.controllers.client.create_client_controller_factory import make_create_client_controller
 from src.main.factories.controllers.event.process_event_controller_factory import make_process_event_controller

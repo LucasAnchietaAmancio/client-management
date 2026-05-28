@@ -19,6 +19,6 @@ class PrismaClient:
 
     def get_client(self) -> Any:
         if self.db is None:
-            raise FailDatabaseConnection("Prisma client is not connected")
+            raise FailDatabaseConnection("Prisma use_cases is not connected")
 
         return self.db

@@ -1,13 +1,15 @@
-from src.application.contracts.client_repository_contract import ClientRepositoryContract
-from src.application.contracts.create_client_use_case_contract import CreateClientUseCaseContract
+from src.application.contracts.repositories.client_repository_contract import ClientRepositoryContract
+from src.application.contracts.use_cases.create_client_use_case_contract import CreateClientUseCaseContract
+from src.application.contracts.gateways.pipefy_gateway_contract import PipefyGatewayContract
 from src.domain.entities.client_entity import ClientEntity
 from src.application.exceptions.client_already_exists import ClientAlreadyExists
 from src.application.use_cases.client.dtos.create_client_request_dto import CreateClientRequestDto
 from src.application.use_cases.client.dtos.create_client_response_dto import CreateClientResponseDto
 
 class CreateClientUseCase(CreateClientUseCaseContract):
-    def __init__(self,client_repository: ClientRepositoryContract) -> None:
+    def __init__(self,client_repository: ClientRepositoryContract,pipefy_gateway: PipefyGatewayContract) -> None:
         self.client_repository = client_repository
+        self.pipefy_gateway = pipefy_gateway
 
     async def execute(self,create_client_request_dto: CreateClientRequestDto) -> CreateClientResponseDto:
 
@@ -23,6 +25,7 @@ class CreateClientUseCase(CreateClientUseCaseContract):
         if existing_client:
             raise ClientAlreadyExists("A customer already exists with that email address, please choose another email address")
 
+        await self.pipefy_gateway.create_card(client)
         await self.client_repository.save(client)
 
         return CreateClientResponseDto(
