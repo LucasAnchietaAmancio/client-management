@@ -4,9 +4,9 @@ from src.application.contracts.client_repository_contract import ClientRepositor
 from src.application.contracts.event_repository_contract import EventRepositoryContract
 from src.application.exceptions.event_already_processed import EventAlreadyProcessed
 from src.application.exceptions.not_exist_client_for_event import NotExistClientForEvent
-from src.application.use_cases.webhook_event.dtos.process_pipefy_webhook_request_dto import ProcessPipefyWebhookRequestDto
-from src.application.use_cases.webhook_event.dtos.process_pipefy_webhook_response_dto import ProcessPipefyWebhookResponseDto
-from src.application.use_cases.webhook_event.process_event_use_case import ProcessEventUseCase
+from src.application.use_cases.event.dtos.process_pipefy_webhook_request_dto import ProcessPipefyWebhookRequestDto
+from src.application.use_cases.event.dtos.process_pipefy_webhook_response_dto import ProcessPipefyWebhookResponseDto
+from src.application.use_cases.event.process_event_use_case import ProcessEventUseCase
 from src.domain.entities.client_entity import ClientEntity
 from src.domain.entities.event_entity import EventEntity
 

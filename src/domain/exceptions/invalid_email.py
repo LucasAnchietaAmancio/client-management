@@ -1,8 +1,11 @@
-from .domain_validation import DomainValidation
+from typing import Any
+from src.shared.errors.app_error import AppError
 
-class InvalidEmail(DomainValidation):
-    def __init__(self,message: str = "Invalid email") -> None:
+class InvalidEmail(AppError):
+    def __init__(self,message: str = "Invalid email",external_error: Exception | Any = None) -> None:
         super().__init__(
-            message=message,
             tag="INVALID_EMAIL",
+            category="VALIDATION",
+            message=message,
+            external_error=external_error,
         )

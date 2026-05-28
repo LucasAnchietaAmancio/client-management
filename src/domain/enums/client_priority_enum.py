@@ -3,4 +3,4 @@ from enum import Enum
 class ClientPriorityEnum(str, Enum):
     HIGH = "prioridade_alta"
     NORMAL = "prioridade_normal"
-    NOT_PROCESSING = "prioridade_nao_processada"
+    NOT_PROCESSING = None

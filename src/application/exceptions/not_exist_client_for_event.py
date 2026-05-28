@@ -1,9 +1,11 @@
-from .application_validation import ApplicationValidation
+from typing import Any
+from src.shared.errors.app_error import AppError
 
-class NotExistClientForEvent(ApplicationValidation):
-    def __init__(self,message: str) -> None:
+class NotExistClientForEvent(AppError):
+    def __init__(self,message: str,external_error: Exception | Any = None) -> None:
         super().__init__(
-            message=message,
             tag="NOT_EXIST_CLIENT_FOR_EVENT",
-            error_type="NOT_FOUND",
+            category="NOT_FOUND",
+            message=message,
+            external_error=external_error,
         )

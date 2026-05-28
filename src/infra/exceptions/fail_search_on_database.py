@@ -1,9 +1,11 @@
-from .infra_validation import InfraValidation
+from typing import Any
+from src.shared.errors.app_error import AppError
 
-class FailSearchOnDatabase(InfraValidation):
-    def __init__(self,message: str,external_error: Exception | None) -> None:
+class FailSearchOnDatabase(AppError):
+    def __init__(self,message: str,external_error: Exception | Any = None) -> None:
         super().__init__(
-            message=message,
             tag="FAIL_SEARCH",
+            category="UNAVAILABLE",
+            message=message,
             external_error=external_error,
         )

@@ -1,8 +1,11 @@
-from .application_validation import ApplicationValidation
+from typing import Any
+from src.shared.errors.app_error import AppError
 
-class InvalidInputData(ApplicationValidation):
-    def __init__(self,message: str) -> None:
+class InvalidInputData(AppError):
+    def __init__(self,message: str,external_error: Exception | Any = None) -> None:
         super().__init__(
-            message=message,
             tag="INVALID_INPUT_DATA",
+            category="INPUT",
+            message=message,
+            external_error=external_error,
         )

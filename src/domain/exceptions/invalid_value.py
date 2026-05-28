@@ -1,8 +1,11 @@
-from .domain_validation import DomainValidation
+from typing import Any
+from src.shared.errors.app_error import AppError
 
-class InvalidValue(DomainValidation):
-    def __init__(self,message: str) -> None:
+class InvalidValue(AppError):
+    def __init__(self,message: str,external_error: Exception | Any = None) -> None:
         super().__init__(
-            message=message,
             tag="INVALID_VALUE",
+            category="VALIDATION",
+            message=message,
+            external_error=external_error,
         )

@@ -1,8 +1,10 @@
 from typing import Any
 
 from ..presentation.http.middlewares.global_exception_middleware import GlobalExceptionMiddleware
-from routes.client.create_client_routes import CreateClientRoute
-from .factories.controllers.create_client_controller_factory import make_create_client_controller
+from src.main.factories.controllers.client.create_client_controller_factory import make_create_client_controller
+from src.main.factories.controllers.event.process_event_controller_factory import make_process_event_controller
+from src.presentation.http.routes.client.create_client_route import CreateClientRoute
+from src.presentation.http.routes.event.process_event_route import ProcessEventRoute
 
 class App:
     def __init__(self,app: Any,router: Any,depends: Any,status: Any,prisma_client: Any,json_response: Any,request_validation_error: type[Exception]) -> None:
@@ -15,12 +17,13 @@ class App:
         self.request_validation_error = request_validation_error
 
     def setup(self) -> Any:
-        GlobalExceptionMiddleware(
-            app=self.app,
+        error_middleware = GlobalExceptionMiddleware(
             json_response=self.json_response,
             status=self.status,
             request_validation_error=self.request_validation_error,
-        ).register()
+        )
+        self.app.middleware("http")(error_middleware.execute)
+        self.app.add_exception_handler(self.request_validation_error,error_middleware.handle_request_validation_error)
 
         @self.app.on_event("startup")
         async def startup() -> None:
@@ -36,7 +39,15 @@ class App:
             controller_factory=make_create_client_controller,
             created_status_code=self.status.HTTP_201_CREATED,
         )
+        process_event_route = ProcessEventRoute(
+            router=self.router,
+            depends=self.depends,
+            controller_factory=make_process_event_controller,
+            created_status_code=self.status.HTTP_200_OK,
+        )
 
-        self.app.include_router(create_client_route.register())
+        create_client_route.register()
+        process_event_route.register()
+        self.app.include_router(self.router)
 
         return self.app

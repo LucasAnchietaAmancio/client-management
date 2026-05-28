@@ -1,7 +1,7 @@
 from src.application.contracts.create_client_use_case_contract import CreateClientUseCaseContract
-from src.application.use_cases.client.dtos.create_client_request_dto import CreateClientRequestDto
-from schema.client.create_client_schema import CreateClientRequestSchema
 
+from src.application.use_cases.client.dtos.create_client_request_dto import CreateClientRequestDto
+from src.presentation.http.schema.client.create_client_schema import CreateClientRequestSchema
 
 class CreateClientController:
     def __init__(self, create_client_use_case: CreateClientUseCaseContract) -> None:

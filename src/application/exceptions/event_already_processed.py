@@ -1,9 +1,11 @@
-from .application_validation import ApplicationValidation
+from typing import Any
+from src.shared.errors.app_error import AppError
 
-class EventAlreadyProcessed(ApplicationValidation):
-    def __init__(self,message: str) -> None:
+class EventAlreadyProcessed(AppError):
+    def __init__(self,message: str,external_error: Exception | Any = None) -> None:
         super().__init__(
-            message=message,
             tag="EVENT_ALREADY_PROCESSED",
-            error_type="CONFLICT",
+            category="CONFLICT",
+            message=message,
+            external_error=external_error,
         )

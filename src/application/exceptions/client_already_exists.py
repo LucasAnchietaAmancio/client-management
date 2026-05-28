@@ -1,9 +1,12 @@
-from .application_validation import ApplicationValidation
+from typing import Any
 
-class ClientAlreadyExists(ApplicationValidation):
-    def __init__(self,message: str) -> None:
+from src.shared.errors.app_error import AppError
+
+class ClientAlreadyExists(AppError):
+    def __init__(self,message: str,external_error: Exception | Any = None) -> None:
         super().__init__(
-            message=message,
             tag="CLIENT_ALREADY_EXISTS",
-            error_type="CONFLICT",
+            category="CONFLICT",
+            message=message,
+            external_error=external_error,
         )
